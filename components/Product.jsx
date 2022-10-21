@@ -3,10 +3,11 @@ import React from 'react';
 import styles from '../styles';
 
 const Product = props => {
+  const saleStyle = typeof props.sale == 'number' ? styles.product__sale__number: styles.product__sale;
   return (
-    <View style={styles.product}>
+    <View style={ props.bottom ? styles.productBot: styles.product}>
       <Image source={props.img} style={styles.product__img} />
-      <View style={styles.product__content}>
+      <View style={props.bottom ? styles.product__contentBottom : styles.product__content}>
         <Text
           style={(styles.product__name, styles.black)}
           numberOfLines={2}
@@ -20,8 +21,8 @@ const Product = props => {
           {props.starNumber || ''}
         </Text>
       </View>
-      <Text style={props.sale ? styles.product__sale : styles.none}>
-        {props.saleNumber || 'sale'}
+      <Text style={props.sale ? saleStyle : styles.none}>
+        {typeof props.sale == 'number' ? props.sale + '% off' : 'sale'}
       </Text>
     </View>
   );
